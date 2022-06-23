@@ -10,8 +10,9 @@ from tkinter import ttk
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from PIL import Image, ImageTk
 import numpy as np
+from PIL import Image, ImageTk
+import os
 
 ListaGraf = ["De Barras Contadora", "Dispersion", "Histograma", "Histogramas con graficas de distribucion"]
 
@@ -75,7 +76,7 @@ Vino = {
     "pH": "pH",
     "Sulfatos": "sulphates",
     "Alcohol": "alcohol",
-    "Calidad": "Calidad",
+    "Calidad": "quality",
     "Id": "Id"
 
 }
@@ -140,7 +141,7 @@ def main():
             elif grafica in ListaGraf:
                 lblcolorificar = Label(graficadora, text="Colorificar", font=("Times", 10))
                 lblcolorificar.place(x=170, y=100)
-                comboboxcolor = ttk.Combobox(graficadora, values=list(diccionario.keys()))
+                comboboxcolor = ttk.Combobox(graficadora, values=list(diccionario.keys()), validate="focusout")
                 comboboxcolor.place(x=170, y=120)
                 lblvalor = Label(graficadora, text="Valor", font=("Times", 10))
                 lblvalor.place(x=170, y=160)
@@ -153,24 +154,39 @@ def main():
                     Ejex = comboboxejex.get()
                     Ejey = comboboxejey.get()
                     sns.scatterplot(x=diccionario[Ejex], y=diccionario[Ejey], hue=diccionario[Color], data=df)
+                    plt.savefig('plot.png')
 
                 elif grafica == "De Barras Contadora":
                     Valor = combobovalor.get()
                     sns.countplot(x=diccionario[Valor], data=df)
-                    plt.show()
+                    plt.savefig('plot.png')
                 elif grafica == "Histograma":
                     Valor = combobovalor.get()
                     fig, axes = plt.subplots(1, 1, figsize=(6, 6))
                     b = round(1 + np.log2(150))
-                    axes[0, 0].set_title()
-                    axes[0, 0].hist(df[diccionario[Valor]], bins=b)
+                    axes.set_title("Grafica")
+                    axes.hist(df[diccionario[Valor]], bins=b)
+                    plt.savefig('plot.png')
+
                 elif grafica == "Histogramas con graficas de distribucion":
 
                     Valor = combobovalor.get()
                     Color = comboboxcolor.get()
                     plot = sns.FacetGrid(df, hue=diccionario[Color])
                     plot.map(sns.histplot, diccionario[Valor]).add_legend()
-                    plt.show()
+                    plt.savefig('plot.png')
+
+                plot = Toplevel()
+                plot.title('Plot')
+                plot.geometry("500x350")
+                image = Image.open("plot.png")
+                resize_image = image.resize((500, 350))
+                img = ImageTk.PhotoImage(resize_image)
+                sel_img = Label(plot, image=img, bg="black")
+                sel_img.image = img
+                sel_img.pack()
+                os.remove('plot.png')
+                plot.mainloop()
 
             btngrafica = Button(graficadora, text="Graficar", command=grafico)
             btngrafica.place(x=210, y=270)
@@ -179,6 +195,23 @@ def main():
 
     btngraficar = Button(window, text="Graficar", command=graficar)
     btngraficar.place(x=90, y=250)
+
+    def informacion():
+        info = Tk()
+        info.title("Informacion")
+        info.geometry("300x400")
+        lbltitulo = Label(info, text="Informacion", font=("Times", 40))
+        lbltitulo.place(x=40, y=0)
+
+        def que_es_analisis():
+            anal = Tk()
+            anal.title("¿Qué es el Analisis de Datos")
+            anal.geometry("300x400")
+
+            anal.mainloop()
+
+        info.mainloop()
+
     window.mainloop()
 
 

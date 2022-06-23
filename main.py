@@ -6,6 +6,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from PIL import *
 import numpy as np
+from PIL import Image, ImageTk
+import os
 
 ListaGraf = ["De Barras Contadora", "Dispersion", "Histograma", "Histogramas con graficas de distribucion"]
 
@@ -98,8 +100,10 @@ class Ventana(Frame):
 
         self.combobox = StringVar()
         self.grafica_type = StringVar()
+        self.colorificar = StringVar()
         self.ejex = StringVar()
         self.ejey = StringVar()
+        self.valor = StringVar()
 
         self.frame_inicio = Frame(self.master, bg='gray25', width=50, height=50)
         self.frame_inicio.grid_propagate(0)
@@ -177,9 +181,6 @@ class Ventana(Frame):
 
     def pantalla_graficar2(self):
         self.paginas.select([self.frame_graficar3])
-        self.frame_tres.columnconfigure(0, weight=1)
-        self.frame_tres.columnconfigure(1, weight=1)
-        self.graficar()
 
     def pantalla_analisis(self):
         if not self.menu:
@@ -223,7 +224,9 @@ class Ventana(Frame):
         self.imagen_vino = PhotoImage(file='vinov2.png')
 
         self.Regresar = PhotoImage(file='button_regresarv2.png')
+        self.Regresar2 = PhotoImage(file='button_regresarv1.png')
         self.Ingresar = PhotoImage(file='button_ingresarv1.png')
+        self.Graficar = PhotoImage(file='button_graficarv1.png')
 
         self.imagen_cancer1 = PhotoImage(file='cancerv2.png')
         self.imagen_iris1 = PhotoImage(file='irisv2.png')
@@ -424,6 +427,13 @@ class Ventana(Frame):
         Button(self.frame_tres, command=self.graficar1, image=self.Ingresar, bg='gray15',
                activebackground='gray15', bd=0).grid(columnspan=2, column=0, row=15, pady=40, padx=4)
 
+        Button(self.frame_graficar2, command=self.graficar2, image=self.Graficar, bg='gray15',
+               activebackground='gray15', bd=0).grid(columnspan=1, column=1, row=15, pady=40, padx=5)
+        Button(self.frame_graficar2, command=self.pantalla_graficar, image=self.Regresar2, bg='gray15',
+               activebackground='gray15', bd=0).grid(columnspan=1, column=0, row=15, pady=40, padx=5)
+
+
+
         ################ Presentacion ################
 
         Label(self.frame_cuatro, text='Análisis', fg='gray80', bg='gray15',
@@ -473,24 +483,94 @@ class Ventana(Frame):
 
             self.pantalla_graficar1()
 
-            Label(self.frame_graficar2, text=(self.combobox.get()), fg='DeepSkyBlue3', bg='gray15',
-                  font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
+            if grafica == "Dispersion":
+                Label(self.frame_graficar2, text=(self.combobox.get()), fg='DeepSkyBlue3', bg='gray15',
+                      font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
 
-            Label(self.frame_graficar2, text='Eje x', fg='gray80', bg='gray15',
-                  font=('Verdana', 12)).grid(columnspan=2, column=0, row=2, pady=10)
-            ttk.Combobox(self.frame_graficar2, textvariable=self.ejex, values=list(diccionario.keys()),
-                         font=('Verdana', 12)).grid(columnspan=2, column=0, row=3, pady=15, padx=5)
+                Label(self.frame_graficar2, text='Colorificar', fg='gray80', bg='gray15',
+                      font=('Verdana', 12)).grid(columnspan=2, column=0, row=2, pady=10)
+                ttk.Combobox(self.frame_graficar2, textvariable=self.colorificar, values=list(diccionario.keys()),
+                             font=('Verdana', 12)).grid(columnspan=2, column=0, row=3, pady=15, padx=5)
 
-            Label(self.frame_graficar2, text='Eje y', fg='gray80', bg='gray15',
-                  font=('Verdana', 12)).grid(columnspan=2, column=0, row=5, pady=10)
-            ttk.Combobox(self.frame_graficar2, textvariable=self.grafica_type, values=list(diccionario.keys()),
-                         font=('Verdana', 12)).grid(columnspan=2, column=0, row=7, pady=15, padx=5)
+                Label(self.frame_graficar2, text='Eje x', fg='gray80', bg='gray15',
+                      font=('Verdana', 12)).grid(columnspan=2, column=0, row=5, pady=10)
+                ttk.Combobox(self.frame_graficar2, textvariable=self.ejex, values=list(diccionario.keys()),
+                             font=('Verdana', 12)).grid(columnspan=2, column=0, row=7, pady=15, padx=5)
 
-            def graficar2():
-                pass
+                Label(self.frame_graficar2, text='Eje y', fg='gray80', bg='gray15',
+                      font=('Verdana', 12)).grid(columnspan=2, column=0, row=9, pady=10)
+                ttk.Combobox(self.frame_graficar2, textvariable=self.ejey, values=list(diccionario.keys()),
+                             font=('Verdana', 12)).grid(columnspan=2, column=0, row=10, pady=15, padx=5)
 
-            Button(self.frame_graficar2, command= graficar2, image=self.Ingresar, bg='gray15',
-                   activebackground='gray15', bd=0).grid(columnspan=2, column=0, row=15, pady=40, padx=5)
+            elif grafica in ListaGraf:
+                Label(self.frame_graficar2, text=(self.combobox.get()), fg='DeepSkyBlue3', bg='gray15',
+                      font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
+
+                Label(self.frame_graficar2, text='Colorificar', fg='gray80', bg='gray15',
+                      font=('Verdana', 12)).grid(columnspan=2, column=0, row=2, pady=10)
+                ttk.Combobox(self.frame_graficar2, textvariable=self.colorificar, values=list(diccionario.keys()),
+                             font=('Verdana', 12)).grid(columnspan=2, column=0, row=3, pady=15, padx=5)
+
+                Label(self.frame_graficar2, text='Valor', fg='gray80', bg='gray15',
+                      font=('Verdana', 12)).grid(columnspan=2, column=0, row=5, pady=10)
+                ttk.Combobox(self.frame_graficar2, textvariable=self.valor, values=list(diccionario.keys()),
+                             font=('Verdana', 12)).grid(columnspan=2, column=0, row=7, pady=15, padx=5)
+
+
+    def graficar2(self):
+
+        archivo = self.combobox.get()
+        df = pd.read_csv(CSV[archivo])
+
+        if CSV[archivo] == "iris.csv": diccionario = Iris
+        if CSV[archivo] == "data.csv": diccionario = Cancer
+        if CSV[archivo] == "WineQT.csv": diccionario = Vino
+        if CSV[archivo] == "diabetes.csv": diccionario = Diabetes
+
+        grafica = self.grafica_type.get()
+
+        if grafica == "Dispersion":
+            color = self.colorificar.get()
+            ejex = self.ejex.get()
+            ejey = self.ejey.get()
+            sns.scatterplot(x=diccionario[ejex], y=diccionario[ejey], hue=diccionario[color], data=df)
+            plt.savefig('plot.png')
+
+        elif grafica == "De Barras Contadora":
+            valor = self.valor.get()
+            sns.countplot(x=diccionario[valor], data=df)
+            plt.savefig('plot.png')
+
+        elif grafica == "Histograma":
+            valor = self.valor.get()
+            fig, axes = plt.subplots(1, 1, figsize=(6, 6))
+            b = round(1 + np.log2(150))
+            axes.set_title("Grafica")
+            axes.hist(df[diccionario[valor]], bins=b)
+            plt.savefig('plot.png')
+
+        elif grafica == "Histogramas con graficas de distribucion":
+            valor = self.valor.get()
+            color = self.colorificar.get()
+            plot = sns.FacetGrid(df, hue=diccionario[color])
+            plot.map(sns.histplot, diccionario[valor]).add_legend()
+            plt.savefig('plot.png')
+
+        self.pantalla_graficar2()
+
+        image = Image.open("plot.png")
+        resize_image = image.resize((500, 350))
+        self.img = ImageTk.PhotoImage(resize_image)
+
+        Label(self.frame_graficar3, text=(self.combobox.get()), bg='gray15', fg='DeepSkyBlue3',
+              font=('Verdana', 30)).pack(expand=1)
+
+        Label(self.frame_graficar3, image=self.img, bg='gray15').pack(expand=1)
+
+        os.remove('plot.png')
+
+
+
 
 
 if __name__ == "__main__":

@@ -4,7 +4,6 @@ from tkinter import *
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from PIL import *
 import numpy as np
 from PIL import Image, ImageTk
 import os
@@ -181,6 +180,8 @@ class Ventana(Frame):
 
     def pantalla_graficar2(self):
         self.paginas.select([self.frame_graficar3])
+        self.frame_graficar3.columnconfigure(0, weight=1)
+        self.frame_graficar3.columnconfigure(1, weight=1)
 
     def pantalla_analisis(self):
         if not self.menu:
@@ -429,10 +430,12 @@ class Ventana(Frame):
 
         Button(self.frame_graficar2, command=self.graficar2, image=self.Graficar, bg='gray15',
                activebackground='gray15', bd=0).grid(columnspan=1, column=1, row=15, pady=40, padx=5)
+
         Button(self.frame_graficar2, command=self.pantalla_graficar, image=self.Regresar2, bg='gray15',
                activebackground='gray15', bd=0).grid(columnspan=1, column=0, row=15, pady=40, padx=5)
 
-
+        Button(self.frame_graficar3, command=self.pantalla_graficar, image=self.Regresar2, bg='gray15',
+               activebackground='gray15', bd=0).grid(columnspan=1, column=0, row=15, pady=40, padx=5)
 
         ################ Presentacion ################
 
@@ -516,8 +519,9 @@ class Ventana(Frame):
                 ttk.Combobox(self.frame_graficar2, textvariable=self.valor, values=list(diccionario.keys()),
                              font=('Verdana', 12)).grid(columnspan=2, column=0, row=7, pady=15, padx=5)
 
-
     def graficar2(self):
+
+        self.pantalla_graficar2()
 
         archivo = self.combobox.get()
         df = pd.read_csv(CSV[archivo])
@@ -533,44 +537,39 @@ class Ventana(Frame):
             color = self.colorificar.get()
             ejex = self.ejex.get()
             ejey = self.ejey.get()
-            sns.scatterplot(x=diccionario[ejex], y=diccionario[ejey], hue=diccionario[color], data=df)
-            plt.savefig('plot.png')
+            from graficas_seaborn import dispersion
+            dispersion(color,ejex,ejey,diccionario,df)
 
-        elif grafica == "De Barras Contadora":
-            valor = self.valor.get()
-            sns.countplot(x=diccionario[valor], data=df)
-            plt.savefig('plot.png')
+        # elif grafica == "De Barras Contadora":
+        #     valor = self.valor.get()
+        #     sns.countplot(x=diccionario[valor], data=df)
+        #     plt.savefig('plot.png')
 
-        elif grafica == "Histograma":
-            valor = self.valor.get()
-            fig, axes = plt.subplots(1, 1, figsize=(6, 6))
-            b = round(1 + np.log2(150))
-            axes.set_title("Grafica")
-            axes.hist(df[diccionario[valor]], bins=b)
-            plt.savefig('plot.png')
-
-        elif grafica == "Histogramas con graficas de distribucion":
-            valor = self.valor.get()
-            color = self.colorificar.get()
-            plot = sns.FacetGrid(df, hue=diccionario[color])
-            plot.map(sns.histplot, diccionario[valor]).add_legend()
-            plt.savefig('plot.png')
-
-        self.pantalla_graficar2()
-
-        image = Image.open("plot.png")
-        resize_image = image.resize((500, 350))
-        self.img = ImageTk.PhotoImage(resize_image)
-
-        Label(self.frame_graficar3, text=(self.combobox.get()), bg='gray15', fg='DeepSkyBlue3',
-              font=('Verdana', 30)).pack(expand=1)
-
-        Label(self.frame_graficar3, image=self.img, bg='gray15').pack(expand=1)
-
-        os.remove('plot.png')
-
-
-
+        # elif grafica == "Histograma":
+        #     valor = self.valor.get()
+        #     fig, axes = plt.subplots(1, 1, figsize=(6, 6))
+        #     b = round(1 + np.log2(150))
+        #     axes.set_title("Grafica")
+        #     axes.hist(df[diccionario[valor]], bins=b)
+        #     plt.savefig('plot.png')
+        #
+        # elif grafica == "Histogramas con graficas de distribucion":
+        #     valor = self.valor.get()
+        #     color = self.colorificar.get()
+        #     plot = sns.FacetGrid(df, hue=diccionario[color])
+        #     plot.map(sns.histplot, diccionario[valor]).add_legend()
+        #     plt.savefig('plot.png')
+        #
+        # self.image = Image.open("plot.png")
+        # self.resize_image = self.image.resize((400, 250))
+        # self.img = ImageTk.PhotoImage(self.resize_image)
+        #
+        # Label(self.frame_graficar3, text=(self.combobox.get()), bg='gray15', fg='DeepSkyBlue3',
+        #       font=('Verdana', 30)).grid(columnspan=2, column=0, row=2, pady=15, padx=5)
+        #
+        # Label(self.frame_graficar3, image=self.img, bg='gray15').grid(columnspan=2, column=0, row=4, pady=15, padx=5)
+        #
+        # os.remove('plot.png')
 
 
 if __name__ == "__main__":

@@ -540,36 +540,35 @@ class Ventana(Frame):
             from graficas_seaborn import dispersion
             dispersion(color,ejex,ejey,diccionario,df)
 
-        # elif grafica == "De Barras Contadora":
-        #     valor = self.valor.get()
-        #     sns.countplot(x=diccionario[valor], data=df)
-        #     plt.savefig('plot.png')
+        elif grafica == "De Barras Contadora":
+            valor = self.valor.get()
+            sns.countplot(x=diccionario[valor], data=df)
+            plt.savefig('plot.png')
 
-        # elif grafica == "Histograma":
-        #     valor = self.valor.get()
-        #     fig, axes = plt.subplots(1, 1, figsize=(6, 6))
-        #     b = round(1 + np.log2(150))
-        #     axes.set_title("Grafica")
-        #     axes.hist(df[diccionario[valor]], bins=b)
-        #     plt.savefig('plot.png')
+        elif grafica == "Histograma":
+            valor = self.valor.get()
+            fig, axes = plt.subplots(1, 1, figsize=(6, 6))
+            b = round(1 + np.log2(150))
+            axes.set_title("Grafica")
+            axes.hist(df[diccionario[valor]], bins=b)
+            plt.savefig('plot.png')
         #
-        # elif grafica == "Histogramas con graficas de distribucion":
-        #     valor = self.valor.get()
-        #     color = self.colorificar.get()
-        #     plot = sns.FacetGrid(df, hue=diccionario[color])
-        #     plot.map(sns.histplot, diccionario[valor]).add_legend()
-        #     plt.savefig('plot.png')
+        elif grafica == "Histogramas con graficas de distribucion":
+            valor = self.valor.get()
+            color = self.colorificar.get()
+            plot = sns.FacetGrid(df, hue=diccionario[color])
+            plot.map(sns.histplot, diccionario[valor]).add_legend()
+            plt.savefig('plot.png')
         #
-        # self.image = Image.open("plot.png")
-        # self.resize_image = self.image.resize((400, 250))
-        # self.img = ImageTk.PhotoImage(self.resize_image)
+        self.image = Image.open("plot.png")
+        self.resize_image = self.image.resize((400, 250))
+        self.img = ImageTk.PhotoImage(self.resize_image)
         #
-        # Label(self.frame_graficar3, text=(self.combobox.get()), bg='gray15', fg='DeepSkyBlue3',
-        #       font=('Verdana', 30)).grid(columnspan=2, column=0, row=2, pady=15, padx=5)
+        Label(self.frame_graficar3, text=(self.combobox.get()), bg='gray15', fg='DeepSkyBlue3',
+                      font=('Verdana', 30)).grid(columnspan=2, column=0, row=2, pady=15, padx=5)
         #
-        # Label(self.frame_graficar3, image=self.img, bg='gray15').grid(columnspan=2, column=0, row=4, pady=15, padx=5)
-        #
-        # os.remove('plot.png')
+        Label(self.frame_graficar3, image=self.img, bg='gray15').grid(columnspan=2, column=0, row=4, pady=15, padx=5)
+        os.remove('plot.png')
 
 
 if __name__ == "__main__":

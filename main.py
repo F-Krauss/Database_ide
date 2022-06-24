@@ -201,6 +201,15 @@ class Ventana(Frame):
     def pantalla_cancer_analisis(self):
         self.paginas.select([self.frame_cancer_analisis])
 
+    def pantalla_iris_analisis(self):
+        self.paginas.select([self.frame_iris_analisis])
+
+    def pantalla_diabetes_analisis(self):
+        self.paginas.select([self.frame_diabetes_analisis])
+
+    def pantalla_vino_analisis(self):
+        self.paginas.select([self.frame_vino_analisis])
+
     def menu_lateral(self):
         if self.menu:
             for i in range(50, 150, 10):
@@ -228,25 +237,25 @@ class Ventana(Frame):
         self.Ingresar = PhotoImage(file='button_ingresarv1.png')
         self.Graficar = PhotoImage(file='button_graficarv1.png')
 
-        self.imagen_cancer1 = PhotoImage(file='cancerv2.png')
-        self.imagen_iris1 = PhotoImage(file='irisv2.png')
-        self.imagen_diabetes1 = PhotoImage(file='diabetesv2.png')
-        self.imagen_vino1 = PhotoImage(file='vinov2.png')
+        self.imagen_cancer = PhotoImage(file='cancerv2.png')
+        self.imagen_iris = PhotoImage(file='irisv2.png')
+        self.imagen_diabetes = PhotoImage(file='diabetesv2.png')
+        self.imagen_vino = PhotoImage(file='vinov2.png')
 
         self.image = Image.open("Cancer_analisis.png")
-        self.resize_image = self.image.resize((270, 160))
+        self.resize_image = self.image.resize((600, 350))
         self.cancer_analisis = ImageTk.PhotoImage(self.resize_image)
 
         self.image = Image.open("Iris_analisis.png")
-        self.resize_image = self.image.resize((270, 160))
+        self.resize_image = self.image.resize((600, 350))
         self.iris_analisis = ImageTk.PhotoImage(self.resize_image)
 
         self.image = Image.open("Diabetes_analisis.png")
-        self.resize_image = self.image.resize((270, 160))
+        self.resize_image = self.image.resize((600, 350))
         self.diabetes_analisis = ImageTk.PhotoImage(self.resize_image)
 
         self.image = Image.open("vino_analisis.png")
-        self.resize_image = self.image.resize((270, 160))
+        self.resize_image = self.image.resize((600, 350))
         self.vino_analisis = ImageTk.PhotoImage(self.resize_image)
 
         self.logo = PhotoImage(file='logscreanv2.png')
@@ -354,7 +363,7 @@ class Ventana(Frame):
                                                   'cancer de mama'
               , bg='gray15', fg='gray80', font=('Verdana', 13)) \
             .grid(columnspan=1, column=0, row=3, pady=0)
-        Label(self.frame_cancer, image=self.imagen_cancer1, bg='gray15') \
+        Label(self.frame_cancer, image=self.imagen_cancer, bg='gray15') \
             .grid(columnspan=1, column=1, row=3, pady=0)
 
         Button(self.frame_cancer, command=self.pantalla_datos, image=self.Regresar, bg='gray15',
@@ -375,7 +384,7 @@ class Ventana(Frame):
                                                 'pertenece la flor'
               , bg='gray15', fg='gray80', font=('Verdana', 13)) \
             .grid(columnspan=1, column=0, row=3, pady=0)
-        Label(self.frame_iris, image=self.imagen_iris1, bg='gray15') \
+        Label(self.frame_iris, image=self.imagen_iris, bg='gray15') \
             .grid(columnspan=1, column=1, row=3, pady=0)
 
         Button(self.frame_iris, command=self.pantalla_datos, image=self.Regresar, bg='gray15',
@@ -395,7 +404,7 @@ class Ventana(Frame):
                                                     'diabetes'
               , bg='gray15', fg='gray80', font=('Verdana', 13)) \
             .grid(columnspan=1, column=0, row=3, pady=20)
-        Label(self.frame_diabetes, image=self.imagen_diabetes1, bg='gray15') \
+        Label(self.frame_diabetes, image=self.imagen_diabetes, bg='gray15') \
             .grid(columnspan=1, column=1, row=3, pady=20)
 
         Button(self.frame_diabetes, command=self.pantalla_datos, image=self.Regresar, bg='gray15',
@@ -414,7 +423,7 @@ class Ventana(Frame):
                                                 'para definir la calidad de un vino'
               , bg='gray15', fg='gray80', font=('Verdana', 13)) \
             .grid(columnspan=1, column=0, row=3, pady=0)
-        Label(self.frame_vino, image=self.imagen_vino1, bg='gray15') \
+        Label(self.frame_vino, image=self.imagen_vino, bg='gray15') \
             .grid(columnspan=1, column=1, row=3, pady=0)
 
         Button(self.frame_vino, command=self.pantalla_datos, image=self.Regresar, bg='gray15',
@@ -425,18 +434,45 @@ class Ventana(Frame):
 
         ########### Diagnostico ###########
 
+        Label(self.frame_cancer_analisis, image=self.cancer_analisis, bg='gray15').pack()
+        Label(self.frame_cancer_analisis,bg='gray15').pack()
+        Label(self.frame_cancer_analisis, bg='gray15').pack()
+        Button(self.frame_cancer_analisis, command=self.pantalla_analisis, image=self.Regresar, bg='gray15',
+               activebackground='gray15', bd=0).pack()
+        Label(self.frame_diabetes_analisis, image=self.diabetes_analisis, bg='gray15').pack()
+        Label(self.frame_diabetes_analisis, bg='gray15').pack()
+        Label(self.frame_diabetes_analisis, bg='gray15').pack()
+        Button(self.frame_diabetes_analisis, command=self.pantalla_analisis, image=self.Regresar, bg='gray15',
+               activebackground='gray15', bd=0).pack()
+        Label(self.frame_iris_analisis, image=self.iris_analisis, bg='gray15').pack()
+        Label(self.frame_iris_analisis, bg='gray15').pack()
+        Label(self.frame_iris_analisis, bg='gray15').pack()
+        Button(self.frame_iris_analisis, command=self.pantalla_analisis, image=self.Regresar, bg='gray15',
+               activebackground='gray15', bd=0).pack()
+        Label(self.frame_vino_analisis, image=self.vino_analisis, bg='gray15').pack()
+        Label(self.frame_vino_analisis, bg='gray15').pack()
+        Label(self.frame_vino_analisis, bg='gray15').pack()
+        Button(self.frame_vino_analisis, command=self.pantalla_analisis, image=self.Regresar, bg='gray15',
+               activebackground='gray15', bd=0).pack()
+
+
     def presentacion(self):
 
         Label(self.frame_cuatro, text='Análisis', fg='gray80', bg='gray15',
               font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
-        Label(self.frame_cuatro, image = self.cancer_analisis, bg='gray15')\
+
+        Button(self.frame_cuatro, command=self.pantalla_cancer_analisis, image=self.imagen_cancer, bg='gray15',
+               activebackground='gray15', bd=0) \
             .grid(columnspan=1, column=0, row=3, pady=20, padx=4)
-        Label(self.frame_cuatro, image=self.iris_analisis, bg='gray15') \
+        Button(self.frame_cuatro, command=self.pantalla_iris_analisis, image=self.imagen_iris, bg='gray15',
+               activebackground='gray15', bd=0) \
             .grid(columnspan=1, column=1, row=3, pady=20, padx=4)
-        Label(self.frame_cuatro, image=self.diabetes_analisis, bg='gray15') \
-            .grid(columnspan=1, column=0, row=4, pady=20, padx=4)
-        Label(self.frame_cuatro, image=self.vino_analisis, bg='gray15') \
-            .grid(columnspan=1, column=1, row=4, pady=20, padx=4)
+        Button(self.frame_cuatro, command=self.pantalla_diabetes_analisis, image=self.imagen_diabetes, bg='gray15',
+               activebackground='gray15', bd=0) \
+            .grid(columnspan=1, column=0, row=4, pady=50, padx=4)
+        Button(self.frame_cuatro, command=self.pantalla_vino_analisis, image=self.imagen_vino, bg='gray15',
+               activebackground='gray15', bd=0) \
+            .grid(columnspan=1, column=1, row=4, pady=50, padx=4)
 
     def db(self):
 

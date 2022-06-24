@@ -70,7 +70,7 @@ Vino = {
     "pH": "pH",
     "Sulfatos": "sulphates",
     "Alcohol": "alcohol",
-    "Calidad": "Calidad",
+    "Calidad": "quality",
     "Id": "Id"
 
 }

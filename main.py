@@ -539,6 +539,7 @@ class Ventana(Frame):
 
         grafica = self.grafica_type.get()
 
+        sns.set(rc={'axes.facecolor': 'slategrey', 'figure.facecolor': 'slategrey'})
         if grafica == "Dispersion":
             color = self.colorificar.get()
             ejex = self.ejex.get()

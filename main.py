@@ -87,15 +87,13 @@ CSV = {"Cancer": "data.csv",
        "Vino": "WineQT.csv",
        "Diabetes": "diabetes.csv"}
 
+
 class Ventana(Frame):
-    presentacion = ["Cancer", "Iris", "Diabetes", "Vino"]
-    i = 0
-    text = presentacion[i]
+
     def __init__(self, master, *args):
         super().__init__(master, *args)
 
         self.menu = True
-        self.color = True
 
         self.combobox = StringVar()
         self.grafica_type = StringVar()
@@ -103,6 +101,8 @@ class Ventana(Frame):
         self.ejex = StringVar()
         self.ejey = StringVar()
         self.valor = StringVar()
+
+        self.l_tittle = Label()
 
         self.frame_inicio = Frame(self.master, bg='gray25', width=50, height=50)
         self.frame_inicio.grid_propagate(0)
@@ -172,16 +172,19 @@ class Ventana(Frame):
         self.paginas.select([self.frame_tres])
         self.frame_tres.columnconfigure(0, weight=1)
         self.frame_tres.columnconfigure(1, weight=1)
+        self.widgetshow()
 
     def pantalla_graficar1(self):
         self.paginas.select([self.frame_graficar2])
         self.frame_graficar2.columnconfigure(0, weight=1)
         self.frame_graficar2.columnconfigure(1, weight=1)
+        self.widgetshow()
 
     def pantalla_graficar2(self):
         self.paginas.select([self.frame_graficar3])
         self.frame_graficar3.columnconfigure(0, weight=1)
         self.frame_graficar3.columnconfigure(1, weight=1)
+        self.widgetshow()
 
     def pantalla_analisis(self):
         if not self.menu:
@@ -193,6 +196,7 @@ class Ventana(Frame):
         self.paginas.select([self.frame_cuatro])
         self.frame_cuatro.columnconfigure(0, weight=1)
         self.frame_cuatro.columnconfigure(1, weight=1)
+        self.presentacion()
 
     def pantalla_cancer_analisis(self):
         self.paginas.select([self.frame_cancer_analisis])
@@ -240,7 +244,7 @@ class Ventana(Frame):
                                 command=self.menu_lateral)
         self.bt_inicio.grid(column=0, row=0, pady=13, padx=8)
 
-        Label(self.frame_inicio, text='Menu', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w")\
+        Label(self.frame_inicio, text='Menu', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w") \
             .grid(column=1, row=0, pady=10, padx=10)
 
         # BOTONES Y ETIQUETAS DEL MENU LATERAL
@@ -254,13 +258,13 @@ class Ventana(Frame):
         Button(self.frame_menu, image=self.imagen_analisis, bg='gray25', activebackground='gray25', bd=0,
                command=self.pantalla_analisis).grid(column=0, row=4, pady=20, padx=7)
 
-        Label(self.frame_menu, text='Inicio', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w")\
+        Label(self.frame_menu, text='Inicio', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w") \
             .grid(column=1, row=1, pady=20, padx=2)
-        Label(self.frame_menu, text='Bases', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w")\
+        Label(self.frame_menu, text='Bases', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w") \
             .grid(column=1, row=2, pady=20, padx=2)
-        Label(self.frame_menu, text='Gráficas', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w")\
+        Label(self.frame_menu, text='Gráficas', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w") \
             .grid(column=1, row=3, pady=20, padx=2)
-        Label(self.frame_menu, text='Análisis', bg='gray25', fg='gray69', font=('Verdana', 10),anchor="w")\
+        Label(self.frame_menu, text='Análisis', bg='gray25', fg='gray69', font=('Verdana', 10), anchor="w") \
             .grid(column=1, row=4, pady=20, padx=2)
 
         #############################  CREAR  PAGINAS  ##############################
@@ -286,8 +290,8 @@ class Ventana(Frame):
         self.frame_vino = Frame(self.paginas, bg='gray15')
         self.frame_iris = Frame(self.paginas, bg='gray15')
 
-        self.frame_graficar2 = Frame(self.paginas,bg='gray15')
-        self.frame_graficar3 = Frame(self.paginas,bg='gray15')
+        self.frame_graficar2 = Frame(self.paginas, bg='gray15')
+        self.frame_graficar3 = Frame(self.paginas, bg='gray15')
 
         self.frame_cancer_analisis = Frame(self.paginas, bg='gray15')
         self.frame_diabetes_analisis = Frame(self.paginas, bg='gray15')
@@ -313,8 +317,6 @@ class Ventana(Frame):
         self.paginas.add(self.frame_vino_analisis)
         self.paginas.add(self.frame_iris_analisis)
 
-
-
         ##############################         PAGINAS       #############################################
 
         ######################## FRAME TITULO #################
@@ -330,19 +332,20 @@ class Ventana(Frame):
 
         #######################  CANCER  ####################
         self.frame_cancer.grid_rowconfigure(0, weight=1)
-        Label(self.frame_cancer, text='Cancer',bg='gray15', fg='gray80',font=('Verdana', 25))\
+        Label(self.frame_cancer, text='Cancer', bg='gray15', fg='gray80', font=('Verdana', 25)) \
             .grid(columnspan=2, column=0, row=2, pady=10)
         Label(self.frame_cancer, anchor="w", text='En esta base de datos se analizan\n'
                                                   'caracteríticas como el diametro de\n'
                                                   'la aureola o la rugosidad de la misma\n '
                                                   'para analizar si un caso tiene o no\n'
                                                   'cancer de mama'
-              , bg='gray15', fg='gray80', font=('Verdana', 13))\
-            .grid(columnspan=1,column=0, row=3, pady=0)
+              , bg='gray15', fg='gray80', font=('Verdana', 13)) \
+            .grid(columnspan=1, column=0, row=3, pady=0)
         Label(self.frame_cancer, image=self.imagen_cancer1, bg='gray15') \
             .grid(columnspan=1, column=1, row=3, pady=0)
 
-        Button(self.frame_cancer, command=self.pantalla_datos, image=self.Regresar,bg='gray15', activebackground='gray15', bd=0)\
+        Button(self.frame_cancer, command=self.pantalla_datos, image=self.Regresar, bg='gray15',
+               activebackground='gray15', bd=0) \
             .grid(columnspan=2, column=0, row=5, pady=30)
 
         self.frame_cancer.grid_rowconfigure(6, weight=2)
@@ -352,11 +355,11 @@ class Ventana(Frame):
         Label(self.frame_iris, text='Iris', bg='gray15', fg='gray80', font=('Verdana', 25)) \
             .grid(columnspan=2, column=0, row=2, pady=10)
         Label(self.frame_iris, anchor="w", text='En esta base de datos se analizan\n'
-                                                  'caracteríticas como el diámetro de\n'
-                                                  'del pépato y el sépalo como el ancho\n '
-                                                  'de los mismos para clasificar a cuál\n'
-                                                  'de las tres familias registradas\n'
-                                                  'pertenece la flor'
+                                                'caracteríticas como el diámetro de\n'
+                                                'del pépato y el sépalo como el ancho\n '
+                                                'de los mismos para clasificar a cuál\n'
+                                                'de las tres familias registradas\n'
+                                                'pertenece la flor'
               , bg='gray15', fg='gray80', font=('Verdana', 13)) \
             .grid(columnspan=1, column=0, row=3, pady=0)
         Label(self.frame_iris, image=self.imagen_iris1, bg='gray15') \
@@ -373,11 +376,10 @@ class Ventana(Frame):
         Label(self.frame_diabetes, text='Diabetes', bg='gray15', fg='gray80', font=('Verdana', 25)) \
             .grid(columnspan=2, column=0, row=2, pady=10)
         Label(self.frame_diabetes, anchor="w", text='En esta base de datos se analizan\n'
-                                                'caracteríticas como el diámetro de\n'
-                                                'del pépato y el sépalo como el ancho\n '
-                                                'de los mismos para clasificar a cuál\n'
-                                                'de las tres familias registradas\n'
-                                                'pertenece la flor'
+                                                    'datos de personas como la glucosa,\n'
+                                                    'y la cantidad de azucar en la sangre\n '
+                                                    'para determinar si el sujeto tiene\n'
+                                                    'diabetes'
               , bg='gray15', fg='gray80', font=('Verdana', 13)) \
             .grid(columnspan=1, column=0, row=3, pady=20)
         Label(self.frame_diabetes, image=self.imagen_diabetes1, bg='gray15') \
@@ -394,11 +396,9 @@ class Ventana(Frame):
         Label(self.frame_vino, text='Vino', bg='gray15', fg='gray80', font=('Verdana', 25)) \
             .grid(columnspan=2, column=0, row=2, pady=10)
         Label(self.frame_vino, anchor="w", text='En esta base de datos se analizan\n'
-                                                    'caracteríticas como el diámetro de\n'
-                                                    'del pépato y el sépalo como el ancho\n '
-                                                    'de los mismos para clasificar a cuál\n'
-                                                    'de las tres familias registradas\n'
-                                                    'pertenece la flor'
+                                                'caracteríticas como la densidad de\n'
+                                                'el ph, el alcohol, entre otros\n '
+                                                'para definir la calidad de un vino'
               , bg='gray15', fg='gray80', font=('Verdana', 13)) \
             .grid(columnspan=1, column=0, row=3, pady=0)
         Label(self.frame_vino, image=self.imagen_vino1, bg='gray15') \
@@ -410,52 +410,27 @@ class Ventana(Frame):
 
         self.frame_vino.grid_rowconfigure(6, weight=2)
 
-        ################ GRAFICA  ####################
+        ########### Diagnostico ###########
 
-        Label(self.frame_tres, text='Graficar', fg='gray80', bg='gray15',
-              font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
-
-        Label(self.frame_tres, text='Elige la base de datos', fg='gray80', bg='gray15',
-              font=('Verdana', 12)).grid(columnspan=2, column=0, row=3, pady=10)
-        ttk.Combobox(self.frame_tres, textvariable=self.combobox, values=list(CSV.keys()),
-                     font=('Verdana', 12)).grid(columnspan=2, column=0, row=4, pady=15, padx=5)
-
-        Label(self.frame_tres, text='¿Que tipo de grafica quieres hacer?', fg='gray80', bg='gray15',
-              font=('Verdana', 12)).grid(columnspan=2, column=0, row=7, pady=10)
-        ttk.Combobox(self.frame_tres, textvariable=self.grafica_type, values=ListaGraf,
-                     font=('Verdana', 12)).grid(columnspan=2, column=0, row=8, pady=15, padx=5)
-
-        Button(self.frame_tres, command=self.graficar1, image=self.Ingresar, bg='gray15',
-               activebackground='gray15', bd=0).grid(columnspan=2, column=0, row=15, pady=40, padx=4)
-
-        Button(self.frame_graficar2, command=self.graficar2, image=self.Graficar, bg='gray15',
-               activebackground='gray15', bd=0).grid(columnspan=1, column=1, row=15, pady=40, padx=5)
-
-        Button(self.frame_graficar2, command=self.pantalla_graficar, image=self.Regresar2, bg='gray15',
-               activebackground='gray15', bd=0).grid(columnspan=1, column=0, row=15, pady=40, padx=5)
-
-        Button(self.frame_graficar3, command=self.pantalla_graficar, image=self.Regresar2, bg='gray15',
-               activebackground='gray15', bd=0).grid(columnspan=2, column=0, row=15, pady=40, padx=5)
-
-        ################ Presentacion ################
+    def presentacion(self):
 
         Label(self.frame_cuatro, text='Análisis', fg='gray80', bg='gray15',
               font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
-
-        Label(self.frame_cuatro, text=self.text, fg='DarkGoldenrod3', bg='gray15',
-              font=('Verdana', 20)).grid(columnspan=4, column=0, row=2, pady=10)
-
-        Button(self.frame_cuatro, command=self.change, image=self.Ingresar, bg='gray15',
-               activebackground='gray15', bd=0).grid(columnspan=2, column=0, row=15, pady=40, padx=4)
-
-    def change(self):
-        self.i += 1
-        if self.i>2:
-            self.i=0
-        self.pantalla_analisis()
-        return self.i
+        Button(self.frame_cuatro, command=self.pantalla_cancer, text='Cancer', bg='gray15', fg='DarkGoldenrod3',
+               activebackground='gray15', font=('Verdana', 20), bd=0) \
+            .grid(columnspan=1, column=0, row=3, pady=20, padx=4)
+        Button(self.frame_cuatro, command=self.pantalla_iris, text='Iris', bg='gray15', fg='DarkGoldenrod3',
+               activebackground='gray15', font=('Verdana', 20), bd=0) \
+            .grid(columnspan=1, column=1, row=3, pady=20, padx=4)
+        Button(self.frame_cuatro, command=self.pantalla_diabetes, text='Diabetes', bg='gray15', fg='DarkGoldenrod3',
+               activebackground='gray15', font=('Verdana', 20), bd=0) \
+            .grid(columnspan=1, column=0, row=4, pady=50, padx=4)
+        Button(self.frame_cuatro, command=self.pantalla_vino, text='Vino', bg='gray15', fg='DarkGoldenrod3',
+               activebackground='gray15', font=('Verdana', 20), bd=0) \
+            .grid(columnspan=1, column=1, row=4, pady=50, padx=4)
 
     def db(self):
+
         Label(self.frame_dos, text='Bases de datos', fg='gray80', bg='gray15',
               font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
 
@@ -472,6 +447,32 @@ class Ventana(Frame):
                activebackground='gray15', bd=0) \
             .grid(columnspan=1, column=1, row=4, pady=50, padx=4)
 
+    def widgetshow(self):
+        Label(self.frame_tres, text='Graficar', fg='gray80', bg='gray15',
+              font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
+
+        Label(self.frame_tres, text='Elige la base de datos', fg='gray80', bg='gray15',
+              font=('Verdana', 12)).grid(columnspan=2, column=0, row=3, pady=10)
+        ttk.Combobox(self.frame_tres, textvariable=self.combobox, values=list(CSV.keys()),
+                     font=('Verdana', 12)).grid(columnspan=2, column=0, row=4, pady=10, padx=5)
+
+        Label(self.frame_tres, text='¿Que tipo de grafica quieres hacer?', fg='gray80', bg='gray15',
+              font=('Verdana', 12)).grid(columnspan=2, column=0, row=7, pady=10)
+        ttk.Combobox(self.frame_tres, textvariable=self.grafica_type, values=ListaGraf,
+                     font=('Verdana', 12)).grid(columnspan=2, column=0, row=8, pady=10, padx=5)
+
+        Button(self.frame_tres, command=self.graficar1, image=self.Ingresar, bg='gray15',
+               activebackground='gray15', bd=0).grid(columnspan=2, column=0, row=15, pady=40, padx=4)
+
+        Button(self.frame_graficar2, command=self.graficar2, image=self.Graficar, bg='gray15',
+               activebackground='gray15', bd=0).grid(columnspan=1, column=1, row=15, pady=40, padx=5)
+
+        Button(self.frame_graficar2, command=self.pantalla_graficar, image=self.Regresar2, bg='gray15',
+               activebackground='gray15', bd=0).grid(columnspan=1, column=0, row=15, pady=40, padx=5)
+
+        Button(self.frame_graficar3, command=self.pantalla_graficar, image=self.Regresar2, bg='gray15',
+               activebackground='gray15', bd=0).grid(columnspan=2, column=0, row=10, pady=20, padx=5)
+
     def graficar1(self):
         if self.combobox.get() in list(CSV.keys()):
             archivo = self.combobox.get()
@@ -484,9 +485,11 @@ class Ventana(Frame):
 
             grafica = self.grafica_type.get()
 
-            self.pantalla_graficar1()
-
             if grafica == "Dispersion":
+                for widget in self.frame_graficar2.winfo_children():
+                    widget.destroy()
+
+                self.pantalla_graficar1()
                 Label(self.frame_graficar2, text=(self.combobox.get()), fg='DeepSkyBlue3', bg='gray15',
                       font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
 
@@ -506,6 +509,9 @@ class Ventana(Frame):
                              font=('Verdana', 12)).grid(columnspan=2, column=0, row=10, pady=15, padx=5)
 
             elif grafica in ListaGraf:
+                for widget in self.frame_graficar2.winfo_children():
+                    widget.destroy()
+                self.pantalla_graficar1()
                 Label(self.frame_graficar2, text=(self.combobox.get()), fg='DeepSkyBlue3', bg='gray15',
                       font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
 
@@ -561,12 +567,11 @@ class Ventana(Frame):
             plt.savefig('plot.png')
 
         self.image = Image.open("plot.png")
-        self.resize_image = self.image.resize((400, 250))
+        self.resize_image = self.image.resize((400, 300))
         self.img = ImageTk.PhotoImage(self.resize_image)
 
         Label(self.frame_graficar3, text=(self.combobox.get()), bg='gray15', fg='DeepSkyBlue3',
-              font=('Verdana', 30)).grid(columnspan=2, column=0, row=2, pady=15, padx=5)
-
+              font=('Verdana', 30)).grid(columnspan=2, column=0, row=1, pady=15, padx=5)
         Label(self.frame_graficar3, image=self.img, bg='gray15').grid(columnspan=2, column=0, row=4, pady=15, padx=5)
 
         os.remove('plot.png')

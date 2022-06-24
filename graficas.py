@@ -125,6 +125,7 @@ def main():
             lblgraficar = Label(graficadora, text="Graficadora", font=("Times", 40))
             lblgraficar.place(x=120, y=0)
             grafica = comboboxgrafica.get()
+
             if grafica == "Dispersion":
                 lblcolorificar = Label(graficadora, text="Colorificar", font=("Times", 10))
                 lblcolorificar.place(x=170, y=100)
@@ -195,22 +196,6 @@ def main():
 
     btngraficar = Button(window, text="Graficar", command=graficar)
     btngraficar.place(x=90, y=250)
-
-    def informacion():
-        info = Tk()
-        info.title("Informacion")
-        info.geometry("300x400")
-        lbltitulo = Label(info, text="Informacion", font=("Times", 40))
-        lbltitulo.place(x=40, y=0)
-
-        def que_es_analisis():
-            anal = Tk()
-            anal.title("¿Qué es el Analisis de Datos")
-            anal.geometry("300x400")
-
-            anal.mainloop()
-
-        info.mainloop()
 
     window.mainloop()
 

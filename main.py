@@ -223,11 +223,6 @@ class Ventana(Frame):
         self.imagen_graficas = PhotoImage(file='graficas.png')
         self.imagen_analisis = PhotoImage(file='analisis.png')
 
-        self.imagen_cancer = PhotoImage(file='cancerv2.png')
-        self.imagen_iris = PhotoImage(file='irisv2.png')
-        self.imagen_diabetes = PhotoImage(file='diabetesv2.png')
-        self.imagen_vino = PhotoImage(file='vinov2.png')
-
         self.Regresar = PhotoImage(file='button_regresarv2.png')
         self.Regresar2 = PhotoImage(file='button_regresarv1.png')
         self.Ingresar = PhotoImage(file='button_ingresarv1.png')
@@ -238,7 +233,25 @@ class Ventana(Frame):
         self.imagen_diabetes1 = PhotoImage(file='diabetesv2.png')
         self.imagen_vino1 = PhotoImage(file='vinov2.png')
 
+        self.image = Image.open("Cancer_analisis.png")
+        self.resize_image = self.image.resize((270, 160))
+        self.cancer_analisis = ImageTk.PhotoImage(self.resize_image)
+
+        self.image = Image.open("Iris_analisis.png")
+        self.resize_image = self.image.resize((270, 160))
+        self.iris_analisis = ImageTk.PhotoImage(self.resize_image)
+
+        self.image = Image.open("Diabetes_analisis.png")
+        self.resize_image = self.image.resize((270, 160))
+        self.diabetes_analisis = ImageTk.PhotoImage(self.resize_image)
+
+        self.image = Image.open("vino_analisis.png")
+        self.resize_image = self.image.resize((270, 160))
+        self.vino_analisis = ImageTk.PhotoImage(self.resize_image)
+
         self.logo = PhotoImage(file='logscreanv2.png')
+
+
 
         self.bt_inicio = Button(self.frame_inicio, image=self.imagen_menu, bg='gray25', activebackground='gray25', bd=0,
                                 command=self.menu_lateral)
@@ -416,18 +429,14 @@ class Ventana(Frame):
 
         Label(self.frame_cuatro, text='Análisis', fg='gray80', bg='gray15',
               font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
-        Button(self.frame_cuatro, command=self.pantalla_cancer, text='Cancer', bg='gray15', fg='DarkGoldenrod3',
-               activebackground='gray15', font=('Verdana', 20), bd=0) \
+        Label(self.frame_cuatro, image = self.cancer_analisis, bg='gray15')\
             .grid(columnspan=1, column=0, row=3, pady=20, padx=4)
-        Button(self.frame_cuatro, command=self.pantalla_iris, text='Iris', bg='gray15', fg='DarkGoldenrod3',
-               activebackground='gray15', font=('Verdana', 20), bd=0) \
+        Label(self.frame_cuatro, image=self.iris_analisis, bg='gray15') \
             .grid(columnspan=1, column=1, row=3, pady=20, padx=4)
-        Button(self.frame_cuatro, command=self.pantalla_diabetes, text='Diabetes', bg='gray15', fg='DarkGoldenrod3',
-               activebackground='gray15', font=('Verdana', 20), bd=0) \
-            .grid(columnspan=1, column=0, row=4, pady=50, padx=4)
-        Button(self.frame_cuatro, command=self.pantalla_vino, text='Vino', bg='gray15', fg='DarkGoldenrod3',
-               activebackground='gray15', font=('Verdana', 20), bd=0) \
-            .grid(columnspan=1, column=1, row=4, pady=50, padx=4)
+        Label(self.frame_cuatro, image=self.diabetes_analisis, bg='gray15') \
+            .grid(columnspan=1, column=0, row=4, pady=20, padx=4)
+        Label(self.frame_cuatro, image=self.vino_analisis, bg='gray15') \
+            .grid(columnspan=1, column=1, row=4, pady=20, padx=4)
 
     def db(self):
 
@@ -576,7 +585,6 @@ class Ventana(Frame):
         Label(self.frame_graficar3, image=self.img, bg='gray15').grid(columnspan=2, column=0, row=4, pady=15, padx=5)
 
         os.remove('plot.png')
-
 
 if __name__ == "__main__":
     ventana = Tk()

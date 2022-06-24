@@ -82,10 +82,10 @@ Iris = {"Id": "Id",
         "Ancho del Petalo": "PetalWidthCm",
         "Especies": "Species"}
 
-CSV = {"Cancer": "data.csv",
-       "Iris": "iris.csv",
-       "Vino": "WineQT.csv",
-       "Diabetes": "diabetes.csv"}
+CSV = {"Cancer": "data_bases/data.csv",
+       "Iris": "data_bases/iris.csv",
+       "Vino": "data_bases/WineQT.csv",
+       "Diabetes": "data_bases/diabetes.csv"}
 
 
 class Ventana(Frame):
@@ -226,41 +226,44 @@ class Ventana(Frame):
             self.menu = True
 
     def widgets(self):
-        self.imagen_inicio = PhotoImage(file='inicio.png')
-        self.imagen_menu = PhotoImage(file='menu.png')
-        self.imagen_datos = PhotoImage(file='base_datos.png')
-        self.imagen_graficas = PhotoImage(file='graficas.png')
-        self.imagen_analisis = PhotoImage(file='analisis.png')
+        self.imagen_inicio = PhotoImage(file='Widgets/inicio.png')
+        self.imagen_menu = PhotoImage(file='Widgets/menu.png')
+        self.imagen_datos = PhotoImage(file='Widgets/base_datos.png')
+        self.imagen_graficas = PhotoImage(file='Widgets/graficas.png')
+        self.imagen_analisis = PhotoImage(file='Widgets/analisis.png')
 
-        self.Regresar = PhotoImage(file='button_regresarv2.png')
-        self.Regresar2 = PhotoImage(file='button_regresarv1.png')
-        self.Ingresar = PhotoImage(file='button_ingresarv1.png')
-        self.Graficar = PhotoImage(file='button_graficarv1.png')
+        self.Regresar = PhotoImage(file='Widgets/button_regresarv2.png')
+        self.Regresar2 = PhotoImage(file='Widgets/button_regresarv1.png')
+        self.Ingresar = PhotoImage(file='Widgets/button_ingresarv1.png')
+        self.Graficar = PhotoImage(file='Widgets/button_graficarv1.png')
 
-        self.imagen_cancer = PhotoImage(file='cancerv2.png')
-        self.imagen_iris = PhotoImage(file='irisv2.png')
-        self.imagen_diabetes = PhotoImage(file='diabetesv2.png')
-        self.imagen_vino = PhotoImage(file='vinov2.png')
+        self.imagen_cancer = PhotoImage(file='Widgets/cancerv2.png')
+        self.imagen_iris = PhotoImage(file='Widgets/irisv2.png')
+        self.imagen_diabetes = PhotoImage(file='Widgets/diabetesv2.png')
+        self.imagen_vino = PhotoImage(file='Widgets/vinov2.png')
 
-        self.image = Image.open("Cancer_analisis.png")
+        self.imagen_cancer1 = PhotoImage(file='Widgets/cancer.png')
+        self.imagen_iris1 = PhotoImage(file='Widgets/iris.png')
+        self.imagen_diabetes1 = PhotoImage(file='Widgets/diabetes.png')
+        self.imagen_vino1 = PhotoImage(file='Widgets/vino.png')
+
+        self.image = Image.open("Imagenes/Cancer_analisis.png")
         self.resize_image = self.image.resize((600, 350))
         self.cancer_analisis = ImageTk.PhotoImage(self.resize_image)
 
-        self.image = Image.open("Iris_analisis.png")
+        self.image = Image.open("Imagenes/Iris_analisis.png")
         self.resize_image = self.image.resize((600, 350))
         self.iris_analisis = ImageTk.PhotoImage(self.resize_image)
 
-        self.image = Image.open("Diabetes_analisis.png")
+        self.image = Image.open("Imagenes/Diabetes_analisis.png")
         self.resize_image = self.image.resize((600, 350))
         self.diabetes_analisis = ImageTk.PhotoImage(self.resize_image)
 
-        self.image = Image.open("vino_analisis.png")
+        self.image = Image.open("Imagenes/vino_analisis.png")
         self.resize_image = self.image.resize((600, 350))
         self.vino_analisis = ImageTk.PhotoImage(self.resize_image)
 
-        self.logo = PhotoImage(file='logscreanv2.png')
-
-
+        self.logo = PhotoImage(file='Widgets/logscreanv2.png')
 
         self.bt_inicio = Button(self.frame_inicio, image=self.imagen_menu, bg='gray25', activebackground='gray25', bd=0,
                                 command=self.menu_lateral)
@@ -435,7 +438,7 @@ class Ventana(Frame):
         ########### Diagnostico ###########
 
         Label(self.frame_cancer_analisis, image=self.cancer_analisis, bg='gray15').pack()
-        Label(self.frame_cancer_analisis,bg='gray15').pack()
+        Label(self.frame_cancer_analisis, bg='gray15').pack()
         Label(self.frame_cancer_analisis, bg='gray15').pack()
         Button(self.frame_cancer_analisis, command=self.pantalla_analisis, image=self.Regresar, bg='gray15',
                activebackground='gray15', bd=0).pack()
@@ -455,22 +458,21 @@ class Ventana(Frame):
         Button(self.frame_vino_analisis, command=self.pantalla_analisis, image=self.Regresar, bg='gray15',
                activebackground='gray15', bd=0).pack()
 
-
     def presentacion(self):
 
         Label(self.frame_cuatro, text='Análisis', fg='gray80', bg='gray15',
               font=('Verdana', 25)).grid(columnspan=2, column=0, row=0, pady=10)
 
-        Button(self.frame_cuatro, command=self.pantalla_cancer_analisis, image=self.imagen_cancer, bg='gray15',
+        Button(self.frame_cuatro, command=self.pantalla_cancer_analisis, image=self.imagen_cancer1, bg='gray15',
                activebackground='gray15', bd=0) \
             .grid(columnspan=1, column=0, row=3, pady=20, padx=4)
-        Button(self.frame_cuatro, command=self.pantalla_iris_analisis, image=self.imagen_iris, bg='gray15',
+        Button(self.frame_cuatro, command=self.pantalla_iris_analisis, image=self.imagen_iris1, bg='gray15',
                activebackground='gray15', bd=0) \
             .grid(columnspan=1, column=1, row=3, pady=20, padx=4)
-        Button(self.frame_cuatro, command=self.pantalla_diabetes_analisis, image=self.imagen_diabetes, bg='gray15',
+        Button(self.frame_cuatro, command=self.pantalla_diabetes_analisis, image=self.imagen_diabetes1, bg='gray15',
                activebackground='gray15', bd=0) \
             .grid(columnspan=1, column=0, row=4, pady=50, padx=4)
-        Button(self.frame_cuatro, command=self.pantalla_vino_analisis, image=self.imagen_vino, bg='gray15',
+        Button(self.frame_cuatro, command=self.pantalla_vino_analisis, image=self.imagen_vino1, bg='gray15',
                activebackground='gray15', bd=0) \
             .grid(columnspan=1, column=1, row=4, pady=50, padx=4)
 
@@ -523,10 +525,10 @@ class Ventana(Frame):
             archivo = self.combobox.get()
             df = pd.read_csv(CSV[archivo])
 
-            if CSV[archivo] == "iris.csv": diccionario = Iris
-            if CSV[archivo] == "data.csv": diccionario = Cancer
-            if CSV[archivo] == "WineQT.csv": diccionario = Vino
-            if CSV[archivo] == "diabetes.csv": diccionario = Diabetes
+            if CSV[archivo] == "data_bases/iris.csv": diccionario = Iris
+            if CSV[archivo] == "data_bases/data.csv": diccionario = Cancer
+            if CSV[archivo] == "data_bases/WineQT.csv": diccionario = Vino
+            if CSV[archivo] == "data_bases/diabetes.csv": diccionario = Diabetes
 
             grafica = self.grafica_type.get()
 
@@ -572,15 +574,18 @@ class Ventana(Frame):
 
     def graficar2(self):
 
+        for widget in self.frame_graficar2.winfo_children():
+            widget.destroy()
+
         self.pantalla_graficar2()
 
         archivo = self.combobox.get()
         df = pd.read_csv(CSV[archivo])
 
-        if CSV[archivo] == "iris.csv": diccionario = Iris
-        if CSV[archivo] == "data.csv": diccionario = Cancer
-        if CSV[archivo] == "WineQT.csv": diccionario = Vino
-        if CSV[archivo] == "diabetes.csv": diccionario = Diabetes
+        if CSV[archivo] == "data_bases/iris.csv": diccionario = Iris
+        if CSV[archivo] == "data_bases/data.csv": diccionario = Cancer
+        if CSV[archivo] == "data_bases/WineQT.csv": diccionario = Vino
+        if CSV[archivo] == "data_bases/diabetes.csv": diccionario = Diabetes
 
         grafica = self.grafica_type.get()
 
@@ -622,12 +627,13 @@ class Ventana(Frame):
 
         os.remove('plot.png')
 
+
 if __name__ == "__main__":
     ventana = Tk()
     ventana.title('')
     ventana.minsize(height=570, width=700)
     ventana.geometry('700x570+180+80')
     ventana.maxsize(height=570, width=700)
-    ventana.call('wm', 'iconphoto', ventana._w, PhotoImage(file='logscreanv2.png'))
+    ventana.call('wm', 'iconphoto', ventana._w, PhotoImage(file='Widgets/logscreanv2.png'))
     app = Ventana(ventana)
     app.mainloop()
